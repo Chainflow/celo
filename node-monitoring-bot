@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# Run this command frequently to check if anything failed.
+#
+# celo-monitoring-bot.sh
+
+# Run this command with optional parameter "status" to check
+# the system is active for every 6 hours.
+#
+# celo-monitoring-bot.sh status
+
+TOKEN=[YOUR TELEGRAM TOKEN]
+CHAT_ID=[YOUR TELEGRAM CHAT ID]
+URL="https://api.telegram.org/bot$TOKEN/sendMessage"
+
+INFO=""
+STATUS=0
+WARNING=""
+MESSAGE=""
+ETH_SYNCING=$(docker exec [YOUR CONTAINER NAME] geth attach --exec eth.syncing | sed -r "s/\x1B\[[0-9;]*[JKmsu]//g")
+ADMIN_PEERS_LENGTH=$(docker exec [YOUR CONTAINER NAME] geth attach --exec admin.peers.length | sed -r "s/\x1B\[[0-9;]*[JKmsu]//g")
+
+if [[ "$1" == "status" || "$1" == "--status" ]]; then
+  STATUS=1
+fi
+
+echo -e "admin.peers.length is: $ADMIN_PEERS_LENGTH"
+echo -e "eth.syncing is: $ETH_SYNCING"
+
+# If admin.peers.length < 1, then send an alert that the "Celo Validator has 0 Peers!"
+if [ "$ADMIN_PEERS_LENGTH" -lt 1 ]; then
+  WARNING+="Celo Validator has 0 Peers!\n"
+else
+  INFO+="Celo Validator has $ADMIN_PEERS_LENGTH Peers\n"
+fi
+
+# If eth.syncing ± 0, then send an alert that the "Celo Validator is not syncing!"
+if [ "$ETH_SYNCING" == "false" ]; then
+  INFO+="Celo Validator is synced.\n"
+else
+  WARNING+="Celo Validator is not synced!\n"
+fi
+
+# Send to Telegram
+MESSAGE="$WARNING$INFO"
+echo -e $MESSAGE
+
+# if status option is true or if there is any warning messages.
+if [[ "$STATUS" -eq 1 || $WARNING != "" ]]; then
+  curl -s -X POST $URL -d chat_id=$CHAT_ID -d text="$(echo -e $MESSAGE)"
