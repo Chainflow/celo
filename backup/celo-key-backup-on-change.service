@@ -1,0 +1,10 @@
+[Unit]
+Description="Key Backup on Change"
+
+[Service]
+User=$YOURUSER
+Type=simple
+ExecStart=/bin/bash $PATHTOSCRIPT/celo-key-backup-on-change.sh
+
+[Install]
+WantedBy=multi-user.target
