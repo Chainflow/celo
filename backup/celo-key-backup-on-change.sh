@@ -16,7 +16,7 @@ echo "Folder copied"
 
 sudo chown -R $YOURUSER:$YOURUSER $PATHTOYOURKEYSTOREBACKUPFOLDER/keystore-backup
 
-zip -rP NArJdRQSPcqxPsu4 $PATHTOYOURKEYSTOREBACKUPFOLDER/keystore-backup/accounts-backups-${TIMESTAMP}.zip $PATHTOYOURKEYSTOREBACKUPFOLDER/backup/keystore-backup
+zip -rP $YOURZIPPASSWORD $PATHTOYOURKEYSTOREBACKUPFOLDER/keystore-backup/accounts-backups-${TIMESTAMP}.zip $PATHTOYOURKEYSTOREBACKUPFOLDER/backup/keystore-backup
 
 echo "Folders zipped"
 
