@@ -2,6 +2,8 @@
 
 **Celo Alert Bot** will send an alert about a new proposal in the network. We are working on adding support for alerts that track the proposal through each step of the [Celo governance process](https://docs.celo.org/celo-codebase/protocol/governance).
 
+Please provide constructive feedback and alert requests [here](https://github.com/Chainflow/celo/issues/1).
+
 ## Install Prerequisites
 - **Go 13.x+**
 
