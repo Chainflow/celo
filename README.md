@@ -1,6 +1,6 @@
 # Celo Alert Bot
 
-**Celo Alert Bot** will send an alert about a new proposal in the network.
+**Celo Alert Bot** will send an alert about a new proposal in the network. We are working on adding support for alerts that track the proposal through each step of the [Celo governance process](https://docs.celo.org/celo-codebase/protocol/governance).
 
 ## Install Prerequisites
 - **Go 13.x+**
