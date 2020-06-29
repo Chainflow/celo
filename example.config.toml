@@ -1,0 +1,12 @@
+[telegram]
+tg_chat_id = 228719171
+tg_bot_token = "1117273891:AAEtr3ZU5x4hgsiashjas-1"
+
+[sendgrid]
+sendgrid_token = "1234567890"
+email_address = "example@xyz.com"
+
+[influxdb]
+port = "8086"
+database = "celo"
+username = ""
